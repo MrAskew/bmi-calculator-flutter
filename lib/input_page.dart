@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
 import 'constants.dart';
+import 'results_page.dart';
 
 enum Gender { male, female }
 
@@ -90,7 +91,7 @@ class _InputPageState extends State<InputPage> {
                           ],
                         ),
                         SliderTheme(
-                          data: SliderThemeData(
+                          data: SliderTheme.of(context).copyWith(
                             inactiveTrackColor: Color(0xFF8D8E98),
                             activeTrackColor: Colors.white,
                             thumbColor: Color(0xFFEB1555),
@@ -213,11 +214,30 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 15.0),
-            color: kBottomContainerColor,
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return ResultsPage();
+                  },
+                ),
+              );
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: kLargeButtonTextStyle,
+                ),
+              ),
+              padding: EdgeInsets.only(bottom: 20.0),
+              margin: EdgeInsets.only(top: 15.0),
+              color: kBottomContainerColor,
+              width: double.infinity,
+              height: kBottomContainerHeight,
+            ),
           ),
         ],
       ),
@@ -236,7 +256,6 @@ class RoundIconButton extends StatelessWidget {
     return RawMaterialButton(
       child: Icon(
         icon,
-        color: Colors.white,
       ),
       onPressed: onPressed,
       constraints: BoxConstraints.tightFor(
